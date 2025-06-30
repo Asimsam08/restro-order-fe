@@ -46,8 +46,8 @@ cd restro-order-fe
 npm install
 
 Set Environment Variables:
-Create a .env file in the root and add:
-NEXT_PUBLIC_API_URL=https://restro-be-jsqa.onrender.com/api
+This project relies on environment variables for API integration.
+For setup instructions, please contact the maintainer or raise an issue on the repository for guidance.
 
 npm run dev
 The app will run locally on http://localhost:3000
