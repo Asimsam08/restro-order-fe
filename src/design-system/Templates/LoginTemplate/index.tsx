@@ -4,6 +4,7 @@ import { useAuthStore } from "@/store/useAuthStore";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { BASE_API_ENDPOINT } from "@/utils/constant";
 
 const LoginTemplate = () => {
   const [email, setEmail] = useState<string>("");
@@ -18,7 +19,7 @@ const LoginTemplate = () => {
     try {
       setLaoding(true)
       const response = await axios.post(
-        `http://localhost:8000/api/auth/login`,
+        `${BASE_API_ENDPOINT}/auth/login`,
         {
           email,
           password,

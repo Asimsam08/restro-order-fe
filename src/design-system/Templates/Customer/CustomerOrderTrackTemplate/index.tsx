@@ -1,51 +1,4 @@
-// "use client";
-// import React, { useEffect, useState } from "react";
 
-// const mockOrder = {
-//   id: 123,
-//   items: ["Paneer Tikka", "Veg Biryani"],
-//   status: "Preparing",
-// };
-
-// const statusFlow = ["Pending", "Confirmed", "Preparing", "Ready", "Delivered"];
-
-// const CustomerTrackPage = () => {
-//   const [status, setStatus] = useState(mockOrder.status);
-
-//   // Simulate live update (replace with WebSocket later)
-//   useEffect(() => {
-//     const interval = setInterval(() => {
-//       setStatus((prev) => {
-//         const idx = statusFlow.indexOf(prev);
-//         return idx < statusFlow.length - 1 ? statusFlow[idx + 1] : prev;
-//       });
-//     }, 3000);
-//     return () => clearInterval(interval);
-//   }, []);
-
-//   return (
-//     <div className="p-6 max-w-xl mx-auto">
-//       <h2 className="text-2xl font-bold mb-2">Track Your Order</h2>
-//       <p className="mb-4 text-gray-700">Order ID: #{mockOrder.id}</p>
-//       <ul className="space-y-2">
-//         {statusFlow.map((step) => (
-//           <li
-//             key={step}
-//             className={`p-3 rounded border ${
-//               statusFlow.indexOf(step) <= statusFlow.indexOf(status)
-//                 ? "bg-green-100 border-green-500"
-//                 : "bg-gray-100 border-gray-300"
-//             }`}
-//           >
-//             {step}
-//           </li>
-//         ))}
-//       </ul>
-//     </div>
-//   );
-// };
-
-// export default CustomerTrackPage;
 
 "use client";
 import React, { useEffect, useState } from "react";
@@ -71,21 +24,7 @@ const CustomerTrackPage = () => {
   const { token, userId, hasHydrated } = useAuthStore();
   const router = useRouter();
 
-  useEffect(() => {
-    socket.on("connect", () => {
-      console.log("Connected to Socket.IO");
-    });
 
-    socket.on("orderStatusUpdated", (data) => {
-      console.log("Order status update received:", data);
-      // You can update your state here based on new order status
-    });
-
-    return () => {
-      socket.off("orderStatusUpdated");
-      socket.disconnect();
-    };
-  }, []);
 
   const formatDate = (iso: string) => {
     const date = new Date(iso);
@@ -107,32 +46,7 @@ const CustomerTrackPage = () => {
     if (token) fetchOrders();
   }, [token]);
 
-  // useEffect(() => {
-  //   console.log("Joining room:", `customer-${userId}`);
-
-  //   if (!token || !userId) return;
-
-  //   // if (token && userId) {
-  //   //   socket.emit("joinRoom", `customer-${userId}`);
-  //   // }
-
-  //   socket.emit("joinRoom", `customer-${userId}`);
-
-  //   socket.on("orderStatusUpdated", (updatedOrder) => {
-  //     console.log("Order status update received:", updatedOrder);
-  //     toast.info("Order status update received");
-
-  //     setOrders((prevOrders) =>
-  //       prevOrders.map((order) =>
-  //         order.id === updatedOrder.id ? updatedOrder : order
-  //       )
-  //     );
-  //   });
-
-  //   return () => {
-  //     socket.off("orderStatusUpdated");
-  //   };
-  // }, [token, userId]);
+  
 
   useEffect(() => {
     if (!hasHydrated || !token || !userId) return;

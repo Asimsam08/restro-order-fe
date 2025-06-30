@@ -3,6 +3,7 @@ import axios from "axios";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { BASE_API_ENDPOINT } from "@/utils/constant";
 
 const SignUpTemplate = () => {
   const [email, setEmail] = useState<string>("");
@@ -34,7 +35,7 @@ const SignUpTemplate = () => {
 
       setLaoding(true)
       const response = await axios.post(
-        "http://localhost:8000/api/auth/register",
+        `${BASE_API_ENDPOINT}/auth/register`,
         {
           name,
           email,
