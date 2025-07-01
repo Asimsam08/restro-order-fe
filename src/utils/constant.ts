@@ -1,4 +1,5 @@
 export const BASE_API_ENDPOINT = process.env.NEXT_PUBLIC_API_URL;
+export const SOCKET_URL = process.env.NEXT_PUBLIC_SOCKET_URL;
 export const menuItems = [
   { id: 1, name: "Margherita Pizza", price: 299 },
   { id: 2, name: "Paneer Tikka", price: 249 },
