@@ -16,6 +16,11 @@ const LoginTemplate = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
+     if (!email || !password) {
+    toast.error("Please fill in all fields.");
+    return;
+  }
+
     try {
       setLaoding(true)
       const response = await axios.post(
