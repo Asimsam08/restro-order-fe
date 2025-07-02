@@ -4,12 +4,13 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { BASE_API_ENDPOINT } from "@/utils/constant";
+import ButtonSpinner from "@/design-system/Atoms/ButtonSpinner";
 
 const SignUpTemplate = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [name, setName] = useState<string>("");
-    const [loading, setLaoding] = useState<boolean>(false)
+  const [loading, setLaoding] = useState<boolean>(false);
   const router = useRouter();
 
   const handleRegister = async (e: React.FormEvent) => {
@@ -32,16 +33,12 @@ const SignUpTemplate = () => {
     }
 
     try {
-
-      setLaoding(true)
-      const response = await axios.post(
-        `${BASE_API_ENDPOINT}/auth/register`,
-        {
-          name,
-          email,
-          password,
-        }
-      );
+      setLaoding(true);
+      const response = await axios.post(`${BASE_API_ENDPOINT}/auth/register`, {
+        name,
+        email,
+        password,
+      });
       toast.success("Registration successful!");
       console.log("Registered user:", response.data);
       if (response.status === 201) {
@@ -52,8 +49,8 @@ const SignUpTemplate = () => {
         err.response?.data?.message || "Registration failed.";
       toast.error(errorMessage);
       console.error("Registration error:", err);
-    }finally {
-      setLaoding(false)
+    } finally {
+      setLaoding(false);
     }
   };
 
@@ -86,10 +83,18 @@ const SignUpTemplate = () => {
 
           <button
             // onClick={handleRegister}
-            className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+            className="w-full flex items-center justify-center gap-2 bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
             type="submit"
+            disabled={loading}
           >
-            Register
+            {loading ? (
+              <>
+                <ButtonSpinner size={20} color="white" />
+                Registering...
+              </>
+            ) : (
+              "Register"
+            )}
           </button>
         </form>
       </div>

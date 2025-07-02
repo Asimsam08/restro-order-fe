@@ -5,6 +5,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { BASE_API_ENDPOINT } from "@/utils/constant";
+import ButtonSpinner from "@/design-system/Atoms/ButtonSpinner";
 
 const LoginTemplate = () => {
   const [email, setEmail] = useState<string>("");
@@ -74,10 +75,17 @@ const LoginTemplate = () => {
 
           <button
             type="submit"
-            className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700"
+            className="w-full flex items-center justify-center gap-2 bg-green-600 text-white py-2 rounded hover:bg-green-700"
             disabled={loading}
           >
-           {loading ? "Logging In" : "Login"}
+            {loading ? (
+              <>
+                <ButtonSpinner size={20} color="white" />
+                Logging In...
+              </>
+            ) : (
+              "Login"
+            )}
           </button>
         </form>
 
